@@ -1,5 +1,4 @@
 import Link from "next/link";
-import fetch from "isomorphic-unfetch";
 
 const Robots = () => {
   return (
@@ -21,12 +20,14 @@ const Robots = () => {
   );
 };
 
-Robots.lengthInitialProps = async function () {
+export async function getStaticProps() {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
   return {
-    robots: data,
+    props: {
+      robots: data,
+    },
   };
-};
+}
 
 export default Robots;
